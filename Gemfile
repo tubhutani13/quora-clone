@@ -82,4 +82,6 @@ group :test do
   gem 'factory_bot_rails'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
+  gem 'rails-controller-testing'
+  gem 'simplecov'
 end

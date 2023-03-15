@@ -20,6 +20,8 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
+require 'simplecov'
+SimpleCov.start
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
@@ -37,6 +39,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  config.include(Shoulda::Matchers::ActionController)
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
