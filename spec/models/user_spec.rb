@@ -109,28 +109,49 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe '#email_activate' do
-      context 'when email is not activated' do
-        it { expect(normal_user.email_confirm_token).not_to be_nil}
-        it { expect(normal_user.verified_at).to be_nil}
+    describe "#email_activate" do
+      context "when email is not activated" do
+        it { expect(normal_user.email_confirm_token).not_to be_nil }
+        it { expect(normal_user.verified_at).to be_nil }
       end
-      context 'when email is activated' do
-        before { normal_user.email_activate}
-        it { expect(normal_user.email_confirm_token).to be_nil}
-        it { expect(normal_user.verified_at).not_to be_nil}
+      context "when email is activated" do
+        before { normal_user.email_activate }
+        it { expect(normal_user.email_confirm_token).to be_nil }
+        it { expect(normal_user.verified_at).not_to be_nil }
       end
     end
 
-    describe '#send_password_reset' do
-      context 'before reset' do
-        it { expect(normal_user.password_reset_sent_at).to be_nil}
-        it { expect(normal_user.password_reset_token).to be_nil}
+    describe "#send_password_reset" do
+      context "before reset" do
+        it { expect(normal_user.password_reset_sent_at).to be_nil }
+        it { expect(normal_user.password_reset_token).to be_nil }
       end
 
-      context 'after password reset sent' do
-        before { normal_user.send_password_reset}
-        it { expect(normal_user.password_reset_sent_at).not_to be_nil}
-        it { expect(normal_user.password_reset_token).not_to be_nil}
+      context "after password reset sent" do
+        before { normal_user.send_password_reset }
+        it { expect(normal_user.password_reset_sent_at).not_to be_nil }
+        it { expect(normal_user.password_reset_token).not_to be_nil }
+      end
+    end
+    context "Follow" do
+      let(:followee) { create(:user) }
+      describe "#follow" do
+        context "Follow successful" do
+          before { normal_user.follow(followee) }
+          it { expect(normal_user.followees).to include(followee) }
+          it { expect(followee.followers).to include(normal_user) }
+          it { expect(normal_user.followed_users).to include(Follow.find_by(followee_id: followee.id)) }
+          it { expect(followee.following_users).to include(Follow.find_by(follower_id: normal_user.id)) }
+        end
+      end
+
+      describe "#unfollow" do
+        context "unfollow successful" do
+          before { normal_user.unfollow(followee) }
+          it { expect(normal_user.followees).not_to include(followee) }
+
+          it { expect(normal_user.followed_users).not_to include(Follow.find_by(followee_id: followee.id)) }
+        end
       end
     end
   end

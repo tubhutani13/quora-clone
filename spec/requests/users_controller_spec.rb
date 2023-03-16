@@ -26,7 +26,7 @@ RSpec.describe UsersController, type: :request do
     end
   end
 
-  describe "#new" do
+  describe "new" do
     def send_request(params = {}, headers = {})
       get "/users/new", params: params, headers: headers
     end
@@ -44,7 +44,7 @@ RSpec.describe UsersController, type: :request do
 
   context "when user is signed in" do
     before(:each) { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@login_user) }
-    describe "#show" do
+    describe "show" do
       let(:user) { create(:user) }
 
       def send_request(user_id, params = {})
@@ -57,7 +57,7 @@ RSpec.describe UsersController, type: :request do
       end
     end
 
-    describe "#create" do
+    describe "create" do
       def send_request(params = {}, headers = {})
         post "/users", params: params, headers: headers
       end
@@ -97,7 +97,7 @@ RSpec.describe UsersController, type: :request do
       end
     end
 
-    describe "#confirm_email" do
+    describe "confirm_email" do
       def send_request(email_confirm_token, params = {}, headers = {})
         get confirm_email_user_path(email_confirm_token), params: params, headers: headers
       end
@@ -136,7 +136,7 @@ RSpec.describe UsersController, type: :request do
       end
     end
 
-    describe "#edit" do
+    describe "edit" do
       def send_request(user_id, params = {}, headers = {})
         get edit_user_url(user_id), params: params, headers: headers
       end
@@ -158,7 +158,7 @@ RSpec.describe UsersController, type: :request do
       end
     end
 
-    describe "#update" do
+    describe "update" do
       def send_request(user_id, params = {}, headers = {})
         patch user_path(user_id), params: params, headers: headers
       end
@@ -196,20 +196,45 @@ RSpec.describe UsersController, type: :request do
       end
     end
 
-    describe "#follow" do
-      def send_request(user_id, params = {}, headers = {})
-        post follow_user_path(user_id), params: params, headers: headers
+    context "following" do
+
+      let(:user_1) { create(:user, :with_pass_confirmation) }
+      before { allow(subject).to receive(:current_user).and_return(@login_user) }
+
+      describe "follow" do
+        def send_request(user_id, params = {}, headers = {})
+          post follow_user_path(user_id), params: params, headers: headers
+        end
+
+        context "User followed success" do
+          before { send_request(user_1.id) }
+          it { expect(flash[:success]).to eq("User followed successfully") }
+        end
+
+        context "User Followed error" do
+          before { allow_any_instance_of(User).to receive(:follow).and_return(nil) }
+          before { send_request(User.last.id) }
+          it { expect(flash[:error]).to eq("error in following") }
+        end
       end
 
-      pending
-    end
+      describe "unfollow" do
+        def send_request(user_id, params = {}, headers = {})
+          post unfollow_user_path(user_id)
+        end
 
-    describe "#unfollow" do
-      def send_request(user_id, params = {}, headers = {})
-        post unfollow_user_path(user_id), params: params, headers: headers
+        before(:each) { @login_user.follow(user_1) }
+        context "User unfollowed success" do
+          before {send_request(user_1.id) }
+          it { expect(flash[:success]).to eq("User unfollowed successfully") }
+        end
+
+        context "User unfollowed error" do
+          before { allow_any_instance_of(User).to receive(:unfollow).and_return(nil) }
+          before { send_request(User.last.id) }
+          it { expect(flash[:error]).to eq("error in unfollowing") }
+        end
       end
-
-      pending
     end
   end
 end

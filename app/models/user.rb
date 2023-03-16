@@ -66,6 +66,14 @@ class User < ApplicationRecord
     self.disabled_at?
   end
 
+  def follow(user)
+    self.followees << user if user
+  end
+
+  def unfollow(user)
+    self.followed_users.find_by(followee_id: user.id)&.destroy
+  end
+
   private
 
   def password_set?
