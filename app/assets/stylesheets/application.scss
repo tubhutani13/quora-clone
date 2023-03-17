@@ -82,3 +82,25 @@ li {
 .follow-button {
   margin-left: auto;
 }
+
+.notification-bell {
+  border: 1px solid;
+  background-color: rgba(0,0,0,0);
+  padding: 0px;
+  margin-left: 4px;
+  position: relative;
+}
+
+.bell-badge {
+  display: none;
+  background-color: #fa3e3e;
+  border-radius: 2px;
+  color: white;
+ 
+  padding: 1px 3px;
+  font-size: 10px;
+  
+  position: absolute; /* Position the badge within the relatively positioned button */
+  top: -3.5px;
+  right: -1.5px;
+}

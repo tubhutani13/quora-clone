@@ -42,20 +42,22 @@ Rails.application.routes.draw do
     end
   end
 
-  scope controller: :votes, path: 'vote' do
-    post 'upvote'
-    post 'downvote'
+  scope controller: :votes, path: "vote" do
+    post "upvote"
+    post "downvote"
   end
-  
+
   resource :admin, only: [:show], module: :admin do
     get "users"
     get "questions"
     get "answers"
     get "comments"
-    patch 'disable_user'
-    patch 'disable_entity'
+    patch "disable_user"
+    patch "disable_entity"
   end
 
+  get "/notification/count", to: "notifications#count"
+  patch "/notification/mark_read", to: "notifications#mark_read"
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#destroy"

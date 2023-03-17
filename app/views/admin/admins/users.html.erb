@@ -23,7 +23,7 @@
             <% if user.disabled_at? %>
               <%= form.submit "Enable User", class: "mt-2 btn btn-primary" %>
             <% else %>
-              <%= form.submit "Disable User",name: 'disabled' class: "mt-2 btn btn-primary" %>
+              <%= form.submit "Disable User",name: 'disabled', class: "mt-2 btn btn-primary" %>
             <% end %>
           <% end %>
         </td>

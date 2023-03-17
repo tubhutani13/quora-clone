@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_081055) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_16_114808) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -99,6 +99,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_081055) do
     t.integer "followee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "content"
+    t.string "notifiable_type", null: false
+    t.integer "notifiable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+  end
+
+  create_table "notifications_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "notification_id", null: false
+    t.boolean "sent"
+    t.datetime "read_at"
+    t.index ["notification_id", "user_id"], name: "index_notifications_users_on_notification_id_and_user_id"
+    t.index ["user_id", "notification_id"], name: "index_notifications_users_on_user_id_and_notification_id"
   end
 
   create_table "orders", force: :cascade do |t|

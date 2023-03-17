@@ -39,7 +39,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     if @question.destroy
-      redirect_to user_path, notice: t("question_delete_success")
+      redirect_to user_path(current_user), notice: t("question_delete_success")
     else
       render :show, status: :unprocessable_entity
     end
