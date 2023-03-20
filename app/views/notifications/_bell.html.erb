@@ -1,4 +1,8 @@
-<div id= 'notifications' data-toggle="tooltip" data-placement="bottom" title="New questions posted" data-ref= 'notifiable-container' data-url= '<%= notification_count_url %>' >
-  <%= button_to notification_mark_read_path,class: 'notification-bell',method: :patch,data:{ref: 'notifiable-button'} do %>
+<div id= 'notifications' data-toggle="tooltip" data-placement="bottom" title="New questions posted" data-ref= 'notifiable-container' data-url= '<%= count_notification_url %>' >
+  <%= button_to mark_read_notification_path,class: 'notification-bell',method: :post,id: 'notification-bell',data:{ref: 'notifiable-button',url: "#{notification_path}"} do %>
     <div><%= image_tag 'notification_bell.png',size: 25 %><span class="bell-badge" id= 'notifiable-badge'>0</span></div>
-  <% end%></div>
+  <% end%>
+  <div class= 'notification-menu ' id= 'notification-menu'>
+  <div id='notification-items'></div>
+  </div>
+</div>

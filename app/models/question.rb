@@ -27,7 +27,8 @@ class Question < ApplicationRecord
   acts_as_taggable_on :topics
 
   private def ensure_published_question_cannot_be_drafted
-    if published_at_previous_change[0] == nil && published_at_previous_change[1] != nil
+
+    if published_at_previously_changed? && published_at_previous_change[0] == nil && published_at_previous_change[1] != nil
       errors.add(:base, "Published question cannot be Drafted")
       throw :abort
     end

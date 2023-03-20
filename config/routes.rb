@@ -56,8 +56,11 @@ Rails.application.routes.draw do
     patch "disable_entity"
   end
 
-  get "/notification/count", to: "notifications#count"
-  patch "/notification/mark_read", to: "notifications#mark_read"
+  resource :notification, only: [:show] do
+    get "count"
+    put "mark_read"
+  end
+
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
