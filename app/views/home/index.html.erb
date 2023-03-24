@@ -19,6 +19,6 @@
     <% end %>
   </div>
   <div class = "col-7 px-5 ml-4"><Strong> Your Feed</Strong>
-    <%= render partial: 'questions/question', collection: @feed_questions %>
+    <%= render partial: 'questions/question', collection: @feed_questions || @questions %>
   </div>
 </div>

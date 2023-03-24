@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get :confirm_email
       post "follow"
       post "unfollow"
+      get 'questions_data'
     end
   end
 

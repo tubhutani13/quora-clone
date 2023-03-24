@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authorize_user, only: [:show]
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :questions_data]
   before_action :set_user_by_email_confirm_token, only: [:confirm_email]
 
   def new
@@ -54,6 +54,10 @@ class UsersController < ApplicationController
   def credits
     @user = current_user
     @credits = current_user.credits
+  end
+
+  def questions_data
+    @questions = @user.questions.published.joins(:comments).group(:questions).having("comments.created_at > #{Date.today() - 1.day()} and count() > 0")
   end
 
   private
