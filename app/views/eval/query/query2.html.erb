@@ -1,0 +1,22 @@
+<div class='container'>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">name</th>
+        <th scope="col">question</th>
+        <th scope='col'> count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td> <%= user.name %></td>
+          <td><%= user.question_name %></td>
+          <td> <%= user.count %></td>
+        </tr>
+      <% end%>
+    </tbody>
+  </table>
+  <%= button_to 'index', eval_queries_path, method: :get %>
+
+</div>

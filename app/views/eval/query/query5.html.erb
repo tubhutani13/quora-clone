@@ -1,0 +1,20 @@
+<div class='container'>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">votes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td> <%= user.name %></td>
+          <td> <%= user.votes.pluck(:id) %></td>
+        </tr>
+      <% end%>
+    </tbody>
+  </table>
+  <%= button_to 'index', eval_queries_path, method: :get %>
+
+</div>

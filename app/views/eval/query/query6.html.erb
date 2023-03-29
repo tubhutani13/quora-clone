@@ -1,0 +1,18 @@
+<div class='container'><table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Activity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <td> <%= question.title %></td>
+        <td> <%= question.activity_count %></td>
+      </tr>
+    <% end%>    </tbody>
+</table>
+<%= button_to 'index', eval_queries_path, method: :get %>
+
+</div>

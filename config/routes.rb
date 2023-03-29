@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       get :confirm_email
       post "follow"
       post "unfollow"
-      get 'questions_data'
+      get "questions_data"
     end
   end
 
@@ -43,6 +43,22 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :eval do
+    get 'queries', to: "query#show"
+    controller :query do
+    get 'query1'
+    get 'query2'
+    get 'query3'
+    get 'query4'
+    get 'query5'
+    get 'query6'
+    get 'query7'
+    get 'query8'
+    get 'query9'
+    get 'query10'
+    get 'query11'
+    end
+  end
   scope controller: :votes, path: "vote" do
     post "upvote"
     post "downvote"
