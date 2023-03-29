@@ -56,7 +56,6 @@ Rails.application.routes.draw do
     get 'query8'
     get 'query9'
     get 'query10'
-    get 'query11'
     end
   end
   scope controller: :votes, path: "vote" do
