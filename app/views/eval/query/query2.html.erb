@@ -8,15 +8,14 @@
       </tr>
     </thead>
     <tbody>
-      <% @users.each do |user| %>
+      <% @result.each do |row| %>
         <tr>
-          <td> <%= user.name %></td>
-          <td><%= user.question_name %></td>
-          <td> <%= user.count %></td>
+          <td> <%= row[0] %></td>
+          <td><%= row[1]%></td>
+          <td><%= row[2]%></td>
         </tr>
       <% end%>
     </tbody>
   </table>
   <%= button_to 'index', eval_queries_path, method: :get %>
-
 </div>

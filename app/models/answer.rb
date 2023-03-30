@@ -3,6 +3,7 @@ class Answer < ApplicationRecord
   include ReportsHandler
   include VotesHandler
 
+  scope :created_since,->(time){where(created_at: time..)}
 
   after_create_commit :send_confirmation_email
   validates_presence_of :content

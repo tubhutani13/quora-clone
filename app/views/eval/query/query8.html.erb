@@ -8,11 +8,11 @@
       </tr>
     </thead>
     <tbody>
-      <% @questions.each do |question| %>
+      <% @questions.each do |row| %>
         <tr>
-          <td> <%= question.title%></td>
-          <td><%= question.upvotes %></td>
-          <td> <%= question.downvotes %></td>
+          <td> <%= row[0]%></td>
+          <td><%= row[1] %></td>
+          <td> <%= row[2] %></td>
         </tr>
       <% end%>
     </tbody>

@@ -6,10 +6,10 @@
     </tr>
   </thead>
   <tbody>
-    <% @questions.each do |question| %>
+    <% @result.each do |row| %>
       <tr>
-        <td> <%= question.title %></td>
-        <td> <%= question.activity_count %></td>
+        <td> <%= row[0] %></td>
+        <td> <%= row[1] %></td>
       </tr>
     <% end%>    </tbody>
 </table>
