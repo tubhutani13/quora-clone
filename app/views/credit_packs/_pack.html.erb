@@ -1,0 +1,12 @@
+<div class="col-md-4">
+  <div class="card p-3">
+    <div class="d-flex flex-row mb-3">
+      <%= image_tag 'dollar.png', width: 70 %>
+      <div class="d-flex flex-column ml-2"><span> Credit Pack</span><span class="text-black-50">QuoraClone Credits</span></div>
+    </div>
+    <h6><%= pack.credits %> Credits for <%= pack.price %> </h6>
+    <div class="d-flex justify-content-between install mt-3"><span>Buy Now</span><span class="text-primary"><%= form_with url: orders_path(pack_id: pack.id) do |form| %>
+          <%= form.submit 'Buy credits', class: 'btn btn-primary' %>
+        <% end %></span></div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<%= render partial: 'shared/error_messages', locals: { model: @question}%>
+<div class="row">
+  <div class="col-md-4 offset-4">
+    <%= form_with(model: @question, local: true) do |f| %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'mb-1 form-control' %>
+      <%= f.label :content %>
+      <%= f.rich_text_area :content, class: 'mb-1 form-control' %>
+      <%= f.label :pdf_attachment, 'Upload pdf attacment' %>
+      <%= f.file_field :pdf_attachment, accept: 'pdf/pdf' %>
+      <%= render partial: 'topics/form',locals: { form: f, entity: @question }%>
+      <%= f.submit "Publish Question",name: "publish", class: "mt-2 btn btn-primary" %>
+      <% unless @question.published? %>
+        <%= f.submit "Draft Question", class: "mt-2 btn btn-primary" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

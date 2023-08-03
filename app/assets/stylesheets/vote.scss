@@ -1,0 +1,31 @@
+.vote-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  width: fit-content;
+  .button_to {
+    margin: 0;
+  }
+  .vote-button {
+    border: 0px solid #eee;
+    border-radius: 4px;
+    border-color: #333232;
+    background-color: #E0E0E0;
+    box-shadow: none;
+    color: #333232;
+    margin: 8px;
+    font-size: 15px;
+    padding: 13px;
+    line-height: 0;
+    width: auto;
+    height: auto;
+    font-weight: 1000;
+  }
+  .upvote {
+    background-color: #C6EDBB;
+  }
+  .downvote {
+    background-color: #F5C9C9;
+  }
+}

@@ -1,0 +1,7 @@
+<%= form_with url: disable_entity_admin_path, method: :patch do |form| %>
+  <%= form.hidden_field :entity_id, value: entity.id %>
+  <%= form.hidden_field :entity_type, value: entity.class %>
+  <% if entity.published? %>
+      <%= form.submit "Unpublish #{entity.class.name}", class: "mt-2 btn btn-primary"  %>
+  <% end %>
+<% end %>

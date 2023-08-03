@@ -1,0 +1,5 @@
+en:
+  not_authorized: 'You are not authorized to access this.'
+  user_enabled: 'User has been enabled.'
+  user_disabled: 'User has been disabled.'
+  entity_disabled: '%{entity} has been disabled.'

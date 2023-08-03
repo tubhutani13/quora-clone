@@ -1,0 +1,7 @@
+<% if resource.present? %>
+  <div class="vote-buttons">
+    <%= button_to 'Ʌ', upvote_path(voteable_id: resource.id, voteable_type: resource.class, format: :json), class: vote_classes_for_current_user(resource, 'upvote'), id: "upvote-button-#{resource.id}-#{resource.class}", data: { resource_id: resource.id, resource_type: resource.class.name, button_type: 'upvote' } %>
+    <div class="votes-count" id=<%= "vote-count-#{resource.id}-#{resource.class}" %> >  <%= resource.net_votes %> </div>
+    <%= button_to 'V', downvote_path(voteable_id: resource.id, voteable_type: resource.class, format: :json), class: vote_classes_for_current_user(resource, 'downvote'), id: "downvote-button-#{resource.id}-#{resource.class}", data: { resource_id: resource.id, resource_type: resource.class.name, button_type: 'downvote' } %>
+  </div>
+<% end %>
