@@ -10,7 +10,6 @@ class VoteHandler {
           const voteButton = event.target;
           const formData = this.generateDataForRequest(voteButton.form);
           const data = await this.handleVoteRequests(voteButton, formData);
-  
           if (data.error) {
             this.handleError(data.error);
           } else {

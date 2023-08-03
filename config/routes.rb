@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get :confirm_email
       post "follow"
       post "unfollow"
+      get 'questions_data'
     end
   end
 
@@ -42,18 +43,23 @@ Rails.application.routes.draw do
     end
   end
 
-  scope controller: :votes, path: 'vote' do
-    post 'upvote'
-    post 'downvote'
+  scope controller: :votes, path: "vote" do
+    post "upvote"
+    post "downvote"
   end
-  
+
   resource :admin, only: [:show], module: :admin do
     get "users"
     get "questions"
     get "answers"
     get "comments"
-    patch 'disable_user'
-    patch 'disable_entity'
+    patch "disable_user"
+    patch "disable_entity"
+  end
+
+  resource :notification, only: [:show] do
+    get "count"
+    put "mark_read"
   end
 
   get "/login", to: "sessions#new"

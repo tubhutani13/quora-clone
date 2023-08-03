@@ -2,6 +2,7 @@ class PasswordsController < ApplicationController
   before_action :set_user_by_password_reset_token, only: [:edit, :update]
   before_action :set_user_by_email, only: [:create]
   before_action :check_password_expiration, only: [:update]
+  skip_before_action :authorize_user
 
   def new
   end
