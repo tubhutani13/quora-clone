@@ -1,5 +1,5 @@
 <div class="col-md-4 offset-4">
-<% current_user.followees.each do |followee| %>
-    followee.name
-<% end %>
+  <% current_user.followees.each do |followee| %>
+    <%= render partial: 'users/show-mini',locals: {user: followee, extra_data: nil}  %>
+  <% end %>
 </div>

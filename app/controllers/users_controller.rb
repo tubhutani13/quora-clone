@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       flash[:success] = t("confirm_email")
       redirect_to root_url
     else
-      flash[:error] = t(error)
+      flash[:error] = t("error")
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       flash[:success] = t("email_activated")
       redirect_to login_url
     else
-      flash[:error] = t(error)
+      flash[:error] = t("error")
       redirect_to root_url
     end
   end

@@ -1,10 +1,9 @@
 <div class=" question mt-2">
-
+  <%= render partial: 'users/show-mini', locals: {user: User.find(comment.user_id), extra_data: "Answered: #{comment.created_at.strftime('%m/%d %I:%M %p')}"} %>
   <div class="desc">
-  <%= comment.body%>
+    <%= comment.body%>
   </div>
   <% if comment.user_id == current_user&.id   %>
     <%= button_to "Delete comment", comment_custom_path(comment,entity,parent_entity),method: :delete, class: "mt-2 btn btn-secondary", form: { data: {turbo_confirm: 'Are you sure?'}}  %>
-  <% else  %>
   <%end  %>
 </div>
