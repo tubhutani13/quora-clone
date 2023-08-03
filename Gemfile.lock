@@ -306,6 +306,7 @@ DEPENDENCIES
   letter_opener (~> 1.8.1)
   puma (~> 5.0)
   rails (~> 7.0.4)
+  sassc-rails (~> 2.1.2)
   rails-controller-testing
   random_token (~> 1.1)
   ransack (~> 3.2.1)

@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   include ::TokenHandler
   enum role: {
-    "user" => 0,
-    "admin" => 1,
+         "user" => 0,
+         "admin" => 1,
   }
 
   before_create :generate_email_confirm_token
@@ -37,6 +37,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, if: :password_set?
 
   def verified?
+
     verified_at?
   end
 
