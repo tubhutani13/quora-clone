@@ -13,7 +13,6 @@ class Credit < ApplicationRecord
   validates :amount, numericality: { other_than: 0 }
 
   def sync_credits
-    @user = self.user
-    @user.recompute_credits
+    user.recompute_credits
   end
 end

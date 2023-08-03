@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
-  before_action :set_reportable
-  before_action :check_already_reported
+  before_action :set_reportable, only: [:create]
+  before_action :check_already_reported, only: [:create]
 
   def new
     @report = Report.new

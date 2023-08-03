@@ -14,13 +14,7 @@
     </thead>
     <tbody>
       <% @credits.each do |credit| %>
-        <% if credit.amount > 0 
-             row_class = "table-success"
-             row_type = "credit"
-          else
-            row_class = "table-danger"
-             row_type = "debit"
-        end %>
+        <% row_class, row_type = row_class_helper(credit)%>
         <tr class = "<%= row_class %>">
           <th scope="row"><%= number = number.next %></th>
           <td><%= credit.description %></td>

@@ -11,4 +11,15 @@ module UsersHelper
     current_user.generate_change_password_token
     redirect_to edit_password_url(current_user.password_reset_token)
   end
+
+  def row_class_helper(credit)
+    if credit.amount > 0
+      row_class = "table-success"
+      row_type = "credit"
+    else
+      row_class = "table-danger"
+      row_type = "debit"
+    end
+    [row_class, row_type]
+  end
 end

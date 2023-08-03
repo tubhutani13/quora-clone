@@ -36,7 +36,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:user_id, :content, :question_permalink, published_at: Time.now)
+    params.require(:answer).permit(:user_id, :content, :question_permalink)
   end
 
   def set_question

@@ -3,8 +3,8 @@
 <% end %>
 <div class=" question " data-ref="voteable-container">
   <%= render partial: 'shared/error_messages', locals: { model: @question}%>
-  <%= render partial: 'users/show-mini', locals: {user: User.find(@question.user_id), extra_data: "Published: #{@question.published? ? @question.published_at.strftime('%m/%d %I:%M %p') : "nil"}"} %>
-  <div class="title"><%= @question.title %><%="(unpublished)" if @question.reports.size >= REPORTS_THRESHOLD %></div>
+  <%= render partial: 'users/show-mini', locals: {user: User.find(@question.user_id), extra_data: "Published: #{extra_data(@question)}"} %>
+  <div class="title"><%= @question.title %><%="(unpublished)" if @question.unpublished? %></div>
   <div class="desc"><%= @question.content.to_plain_text %></div>
   <% if @question.pdf_attachment.present?%>
     <%= link_to  "Open PDF",rails_blob_path(@question.pdf_attachment), class: "d-block" %>

@@ -12,10 +12,10 @@ module ReportsHandler
   end
 
   def published?
-    self.published_at.present?
+    published_at.present?
   end
 
   def unpublished?
-    self.reports.count >= REPORTS_THRESHOLD || !published?
+    reports.count >= REPORTS_THRESHOLD || !published?
   end
 end
