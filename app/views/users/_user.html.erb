@@ -5,6 +5,10 @@
     <div ><Strong><%= @user.name %></Strong></div>
     <div><%= @user.email %></div>
     <br />
+    <div class= "d-flex justify-content-around">
+      <%= button_to 'Followers', user_followers_path(@user), method: :get, class: "mt-2 btn btn-primary" %>
+      <%= button_to 'Following', user_following_path(@user), method: :get, class: "mt-2 btn btn-primary" %>
+    </div>
     <div>Your Topic of interests</div>
     <div class="topics-container">
       <%= render partial: 'topics/topic', collection: @user.topics %>
@@ -12,13 +16,13 @@
     <%= button_to 'Edit Profile', edit_user_path, method: :get, class: "mt-2 btn btn-primary" %>
   </div>
 </div>
- <div class= "d-flex w-auto  mt-5">
-    <div class="list-group border border-secondary w-50 mr-5">
+<div class= "d-flex w-auto  mt-5">
+  <div class="list-group border border-secondary w-50 mr-5">
     <div class= "border-bottom border-secondary text-center p-2">Your Published Questions</div>
-      <%= render partial: 'questions/question', collection: @user.questions.where.not(published_at: nil) %>
-    </div>
-    <div class="list-group border border-secondary w-50 ml-5">
+    <%= render partial: 'questions/question', collection: @user.questions.where.not(published_at: nil) %>
+  </div>
+  <div class="list-group border border-secondary w-50 ml-5">
     <div class= "border-bottom border-secondary text-center p-2">Your Drafted Questions</div>
-      <%= render partial: 'questions/question', collection: @user.questions.where(published_at: nil) %>
-    </div>
+    <%= render partial: 'questions/question', collection: @user.questions.where(published_at: nil) %>
+  </div>
 </div>

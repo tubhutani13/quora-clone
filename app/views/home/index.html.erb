@@ -3,6 +3,8 @@
   <div class= "col-2 topic_search ">
     <h3>Search From Topics</h3>
     <%= search_form_for @q, url: root_path, html: { method: :get } do |f| %>
+    <%= label_tag "Questions from People I follow"%>
+        <%= check_box_tag('follow') %>
       <div class= "d-flex flex-column topic-menu">
         <% @topics.each do |topic| %>
           <div class="d-flex justify-content-between">
