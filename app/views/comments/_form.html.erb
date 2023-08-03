@@ -1,0 +1,13 @@
+<div>
+  <%= form_with(model: [parent_entity,entity,comment].compact) do |f| %>
+    <% if @comment %>
+      <%= render partial: 'shared/error_messages', locals: { model: @comment}%>
+    <% end %>
+    <%= f.hidden_field :commentable_id, value: entity.id %>
+    <%= f.hidden_field :commentable_type, value: entity.class %>
+    <div class= "d-flex justify-content-between mt-2">
+      <%= f.text_field :body, class: 'mr-2 form-control' %>
+      <%= f.submit "post comment", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

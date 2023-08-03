@@ -1,15 +1,20 @@
 class Question < ApplicationRecord
   include ::TokenHandler
+  include CommentsHandler
+  
+  belongs_to :user
+  has_many :answers, dependent: :restrict_with_error
 
+  scope :published_questions, -> { where.not(published_at: :nil) }
   before_create -> { generate_token(:permalink) }
   before_save :ensure_published_question_cannot_be_drafted
-  
+
   with_options if: :published? do
     validates :title, presence: true, uniqueness: true
     validates :content, presence: true, length: { minimum: 15 }
     validates :topic_list, presence: true
   end
-  
+
   belongs_to :user
   has_one_attached :pdf_attachment
   has_rich_text :content

@@ -1,0 +1,5 @@
+<%= @greeting %> <%= @user.name %>, <br>
+The following answer Has been posted to Your question <br>
+<%= @question.title %><br>
+Answer.first.answer_body.to_plain_text.truncate_words(8)
+                                                                         

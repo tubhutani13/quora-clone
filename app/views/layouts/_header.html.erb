@@ -3,17 +3,21 @@
     <div class="navbar-header">
       <%= link_to "Home", root_path, class: "mx-2" %>
     </div>
-    <% if logged_in? %>
-      <ul class="nav navbar-right d-flex align-items-center">
+    <ul class="nav navbar-right d-flex align-items-center">
+      <li >
+        <%= search_form_for @q, url: search_questions_path,class:"d-flex", html: { method: :post } do |f| %>
+          <%= f.search_field :title_cont, type: "text", class: "form-control me-2", placeholder: "Search" %>
+          <%= f.submit 'Search', class:"btn btn-outline-success"%>
+        <% end %>
+      </li>
+      <% if logged_in? %>
         <li><%= link_to "Your Profile", user_path(current_user), class: "mx-2", method: :get %></li>
         <li><%= link_to "Log out", logout_path, class: "mx-2", method: :delete %></li>
         <li><%= button_to 'New Question', new_question_path,method: :get ,class: "btn btn-outline-primary" %></li>
-      </ul>
-    <% else %>
-      <ul class="nav navbar-right d-flex align-items-center">
+      <% else %>
         <li><%= link_to "Log in", login_path, class: "mx-2" %></li>
         <li><%= link_to "Sign up", signup_path, class: "mx-2" %></li>
-      </ul>
-    <% end %>
+      <% end %>
+    </ul>
   </div>
 </nav>

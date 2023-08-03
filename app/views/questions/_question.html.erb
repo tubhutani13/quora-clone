@@ -3,8 +3,8 @@
   <div class= "d-flex justify-content-between bd-highlight">
     <Strong class=""><%= question.title %></Strong>
     <div class= "d-flex flex-column flex-shrink-1">
-      <div><%="#{question.answers.count} Answers"%></div>
-      <div><%= "#{question.comments.count} Comments" %></div>
+      <div><%="#{question.answers.size} Answers"%></div>
+      <div><%= "#{question.comments.size} Comments" %></div>
     </div>
   </div>
   <div><%= question.content.to_plain_text.truncate(40) %></div>
