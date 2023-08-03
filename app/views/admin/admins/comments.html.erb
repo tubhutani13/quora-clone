@@ -1,0 +1,32 @@
+<div class = " container">  <Strong>Comment list</Strong>
+  <table class="table">
+    <thead>
+      <tr>
+        <% number = 0 %>
+        <th scope="col">#</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Comment On</th>
+        <th scope="col">Title</th>
+        <th scope="col">View</th>
+        <th scope="col">Unpublish</th>
+      </tr>
+    </thead>
+    <% @comments.each do |comment| %>
+      <tr>
+        <th scope="row"><%= number = number.next %></th>
+        <td><%= comment.content %></td>
+        <td><%= comment.commentable_type %></td>
+        <% if comment.commentable_type == 'Answer' %>
+          <td><%= comment.commentable.question.title.truncate(40) %><br/>
+            <%= comment.commentable.content.to_plain_text.truncate(40) %></td>
+          <td><%= link_to 'View Comment', question_path(comment.commentable.question.permalink) %></td>
+        <% else %>
+          <td><%= comment.commentable.title %></td>
+          <td><%= link_to 'View Comment', question_path(comment.commentable.permalink) %></td>
+        <% end %>
+        <td><%= render partial: 'disable_entity_form', locals: { entity: comment } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

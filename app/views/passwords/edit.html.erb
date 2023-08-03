@@ -1,0 +1,16 @@
+<h1>Reset Password</h1>
+
+<%= form_for @user, :url => password_path(params[:id]) do |f| %>
+    <%= render partial: 'shared/error_messages', locals: { model: @user}%>
+
+
+  <div class='field'>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <div class='field'>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class='actions'><%= f.submit 'Update password' %></div>
+<% end %>

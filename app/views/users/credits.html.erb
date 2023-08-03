@@ -1,0 +1,35 @@
+<h1 class= "container">Hello, <%= @user.name %></h1>
+<div class = " container">
+  <Strong> Your Transactions</Strong>
+  <table class="table">
+    <thead>
+      <tr>
+        <% number = 0 %>
+        <th scope="col">#</th>
+        <th scope="col">Description</th>
+        <th scope="col">Time</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @credits.each do |credit| %>
+        <% if credit.amount > 0 
+             row_class = "table-success"
+             row_type = "credit"
+          else
+            row_class = "table-danger"
+             row_type = "debit"
+        end %>
+        <tr class = "<%= row_class %>">
+          <th scope="row"><%= number = number.next %></th>
+          <td><%= credit.description %></td>
+          <td><%= credit.created_at.strftime('%m/%d %I:%M %p') %></td>
+          <td><%= credit.amount %></td>
+          <td><%= row_type %></td>
+        </div>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

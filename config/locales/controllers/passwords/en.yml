@@ -1,0 +1,4 @@
+en:
+  email_sent: "E-mail sent with password reset instructions."
+  password_expired: "Password reset has expired"
+  password_reset_success: "Password has been reset!"

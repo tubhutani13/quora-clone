@@ -1,0 +1,14 @@
+  <%= link_to question_path(question), class:"list-group-item list-group-item-action list-group-item-secondary" do %>
+  <%= render partial: 'users/show-mini', locals: {user: User.find(question.user_id), extra_data: "Published: #{question.published? ? question.published_at.strftime('%m/%d %I:%M %p') : 'nil'}"} %>
+  <div class= "d-flex justify-content-between bd-highlight">
+    <Strong class=""><%= question.title %><%="(unpublished)" if question.reports.size >= REPORTS_THRESHOLD %></Strong>
+    <div class= "d-flex flex-column flex-shrink-1">
+      <div><%="#{question.answers.size} Answers"%></div>
+      <div><%= "#{question.comments.size} Comments" %></div>
+    </div>
+  </div>
+  <div><%= question.content.to_plain_text.truncate(40) %></div>
+  <div class="topics-container">
+    <%= render partial: 'topics/topic', collection: question.topics %>
+  </div>
+<% end %>

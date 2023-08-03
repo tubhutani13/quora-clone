@@ -1,0 +1,33 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'scripts/votes_handler', defer: true %>
+<% end %>
+<div class=" question " data-ref="voteable-container">
+  <%= render partial: 'shared/error_messages', locals: { model: @question}%>
+  <%= render partial: 'users/show-mini', locals: {user: User.find(@question.user_id), extra_data: "Published: #{@question.published? ? @question.published_at.strftime('%m/%d %I:%M %p') : "nil"}"} %>
+  <div class="title"><%= @question.title %><%="(unpublished)" if @question.reports.size >= REPORTS_THRESHOLD %></div>
+  <div class="desc"><%= @question.content.to_plain_text %></div>
+  <% if @question.pdf_attachment.present?%>
+    <%= link_to  "Open PDF",rails_blob_path(@question.pdf_attachment), class: "d-block" %>
+    <iframe src="<%= rails_blob_path(@question.pdf_attachment) %>" scrolling="no" style="overflow:hidden" height="200" width="300"></iframe>
+  <% end %>
+  <br />
+  <div>Question topics</div>
+  <div class="topics-container">
+    <%= render partial: 'topics/topic', collection: @question.topics %>
+  </div>
+  <div class="question mt-2">
+    <% if @question.user_id == current_user&.id %>
+      <%= button_to 'Edit Question', edit_question_path, method: :get, class: "mt-2 btn btn-primary" %>
+      <%= button_to "Delete Question", @question,method: :delete, class: "mt-2 btn btn-primary", form: { data: {turbo_confirm: 'Are you sure?'}}  %>
+    <% else %>
+      <% if logged_in? %>
+        <%= link_to 'Report this Question', new_report_path(reportable_id: @question.id, reportable_type: @question.class) %>
+        <%= render partial: 'answers/form',locals:{ entity: @question, answer:@question.answers.build } %>
+        <%= render partial: 'comments/form',locals:{ entity: @question, comment:@question.comments.build, parent_entity: nil } %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= render partial: 'comments/comment', collection: @question.comments.where.not(id: nil),locals:{ entity: @question, parent_entity: nil} %>
+  <%= render partial: 'answers/answer', collection: @question.answers.where.not(id: nil),locals:{ entity: @question}%>
+</div>
+</div>
