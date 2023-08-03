@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
         end
         format.json { render :show, status: :created, location: @question }
       else
-        flash[:error] = t(error)
+        flash[:error] = t("error")
         format.html { render :new, status: :unprocessable_entity }
       end
     end

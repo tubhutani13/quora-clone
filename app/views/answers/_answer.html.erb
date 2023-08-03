@@ -1,10 +1,11 @@
 <div class="question mt-2">
+  <%= render partial: 'users/show-mini', locals: {user: User.find(answer.user_id), extra_data: "Answered: #{answer.created_at.strftime('%m/%d %I:%M %p')}"} %>
   <div class="desc"><%= answer.answer_body.to_plain_text %></div>
   <% if answer.user_id == current_user&.id  %>
     <%= button_to "Delete Answer", question_answer_path(entity.permalink , answer.id ),method: :delete, class: "mt-2 btn btn-secondary", form: { data: {turbo_confirm: 'Are you sure?'}}  %>
   <%end  %>
   <%= render partial: 'comments/form',locals:{ entity: answer, comment: answer.comments.build, parent_entity: entity } %>
   <div class= "answer-comm">
-  <%= render partial: 'comments/comment', collection: answer.comments.where.not(id: nil),locals:{ entity: answer, parent_entity: entity } %>
+    <%= render partial: 'comments/comment', collection: answer.comments.where.not(id: nil),locals:{ entity: answer, parent_entity: entity } %>
   </div>
 </div>

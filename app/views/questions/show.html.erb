@@ -1,5 +1,6 @@
 <div class=" question ">
   <%= render partial: 'shared/error_messages', locals: { model: @question}%>
+  <%= render partial: 'users/show-mini', locals: {user: User.find(@question.user_id), extra_data: "Published: #{@question.published_at.strftime('%m/%d %I:%M %p')}"} %>
   <div class="title"><%= @question.title %></div>
   <div class="desc"><%= @question.content.to_plain_text %></div>
   <% if @question.pdf_attachment.present?%>

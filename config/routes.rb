@@ -5,8 +5,12 @@ Rails.application.routes.draw do
   root "home#index"
   get "/signup", to: "users#new"
   resources :users do
+    get "/followers", to: "users#followers"
+    get "/following", to: "users#followees"
     member do
       get :confirm_email
+      post "follow"
+      post "unfollow"
     end
   end
   resources :passwords

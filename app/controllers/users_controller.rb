@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       flash[:success] = t("confirm_email")
       redirect_to root_url
     else
-      flash[:error] = t(error)
+      flash[:error] = t("error")
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,9 +34,21 @@ class UsersController < ApplicationController
       flash[:success] = t("email_activated")
       redirect_to login_url
     else
-      flash[:error] = t(error)
+      flash[:error] = t("error")
       redirect_to root_url
     end
+  end
+
+  def follow
+    @user = User.find(params[:id])
+    current_user.followees << @user
+    redirect_back(fallback_location: user_path(@user))
+  end
+
+  def unfollow
+    @user = User.find(params[:id])
+    current_user.followed_users.find_by(followee_id: @user.id).destroy
+    redirect_back(fallback_location: user_path(@user))
   end
 
   private
