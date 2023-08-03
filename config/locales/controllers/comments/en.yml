@@ -1,0 +1,7 @@
+en:
+  comment_publish_success: "Comment published successfully"
+  comment_delete_success: "Comment deleted successfully"
+  comment_publish_error: "Error while creating comment"
+  comment_delete_error: "Error while deleting comment"
+  comment_user_error: "You should be the publisher of the comment or admin to delete the comment"
+

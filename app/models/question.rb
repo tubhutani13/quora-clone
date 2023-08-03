@@ -1,6 +1,7 @@
 class Question < ApplicationRecord
   include ::TokenHandler
-
+  include CommentsHandler
+  
   belongs_to :user
   has_many :answers, dependent: :restrict_with_error
 

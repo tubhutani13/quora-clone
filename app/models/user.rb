@@ -12,6 +12,13 @@ class User < ApplicationRecord
   
   has_many :questions, dependent: :restrict_with_error
   has_many :answers, dependent: :nullify
+  has_many :comments, dependent: :nullify
+
+  has_many :followed_users, foreign_key: :follower_id, class_name: "Follow"
+  has_many :followees, through: :followed_users
+  has_many :following_users, foreign_key: :followee_id, class_name: "Follow"
+  has_many :followers, through: :following_users
+
   has_secure_password
   acts_as_taggable_on :topics
   has_one_attached :profile_picture, dependent: :destroy do |attachable|
