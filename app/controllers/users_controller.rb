@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authorize_user, only: [:show]
-  before_action :set_user, only: [:show, :edit, :update, :questions_data]
+  before_action :set_user, only: [:show, :edit, :update, :questions_data, :follow, :unfollow]
   before_action :set_user_by_email_confirm_token, only: [:confirm_email]
 
   def new
@@ -40,14 +40,20 @@ class UsersController < ApplicationController
   end
 
   def follow
-    @user = User.find(params[:id])
-    current_user.followees << @user
+    if current_user.follow(@user)
+      flash[:success] = "User followed successfully"
+    else
+      flash[:error] = "error in following"
+    end
     redirect_back(fallback_location: user_path(@user))
   end
 
   def unfollow
-    @user = User.find(params[:id])
-    current_user.followed_users.find_by(followee_id: @user.id).destroy
+    if current_user.unfollow(@user)
+      flash[:success] = "User unfollowed successfully"
+    else
+      flash[:error] = "error in unfollowing"
+    end
     redirect_back(fallback_location: user_path(@user))
   end
 

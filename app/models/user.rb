@@ -5,11 +5,11 @@ class User < ApplicationRecord
     "admin" => 1,
   }
 
-  before_create -> { generate_token(:email_confirm_token) }
+  before_create :generate_email_confirm_token
   after_create_commit :send_confirmation_email
   before_save :downcase_email
   before_update :add_verification_credits, if: :verified_at_changed?
-  before_update -> { generate_token(:auth_token) }, if: :verified_at_changed?
+  before_update :generate_auth_token, if: :verified_at_changed?
 
   has_many :questions, dependent: :restrict_with_error
   has_many :answers, dependent: :nullify
@@ -37,7 +37,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, if: :password_set?
 
   def verified?
-    verified_at.present?
+    verified_at?
   end
 
   def email_activate
@@ -69,6 +69,14 @@ class User < ApplicationRecord
     self.disabled_at?
   end
 
+  def follow(user)
+    self.followees << user if user
+  end
+
+  def unfollow(user)
+    self.followed_users.find_by(followee_id: user.id)&.destroy
+  end
+
   private
 
   def password_set?
@@ -81,5 +89,13 @@ class User < ApplicationRecord
 
   def downcase_email
     self.email = email.downcase
+  end
+
+  def generate_email_confirm_token
+    generate_token(:email_confirm_token)
+  end
+
+  def generate_auth_token
+    generate_token(:auth_token)
   end
 end
