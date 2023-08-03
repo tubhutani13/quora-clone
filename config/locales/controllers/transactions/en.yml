@@ -1,0 +1,3 @@
+en:
+  invalid_transaction: 'Invalid Transaction.'
+  already_redeemed: 'This transaction was already processed.'
