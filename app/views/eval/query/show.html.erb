@@ -1,0 +1,23 @@
+<div class='container'>
+  <h1>Rails Evaluation Queries</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Query</th>
+        <th scope="col">Button</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'query', locals: {name: "questions where single user answered multiple times", path: eval_query1_path } %>
+      <%= render partial: 'query', locals: {name: "Users who commented more than once on question's answer", path: eval_query2_path } %>
+      <%= render partial: 'query', locals: {name: "questions where answers.upvote.user_id = question.user_id", path: eval_query3_path } %>
+      <%= render partial: 'query', locals: {name: "question where answer > 0 and answer comment > 0", path: eval_query4_path } %>
+      <%= render partial: 'query', locals: {name: "users who upvoted on only question comments", path: eval_query5_path } %>
+      <%= render partial: 'query', locals: {name: " Top 5 most active questions in recent hour(jinme comments and answers ka high count in last)", path: eval_query6_path } %>
+      <%= render partial: 'query', locals: {name: "My most followed questions (jinme mei sbse jyada comments ya answers kiye)", path: eval_query7_path } %>
+      <%= render partial: 'query', locals: {name: "Total upvotes and downvotes in a question (Answer + Comments)", path: eval_query8_path } %>
+      <%= render partial: 'query', locals: {name: " Most rich person who bought max credits in last 2 days", path: eval_query9_path } %>
+      <%= render partial: 'query', locals: {name: "User who has max distinct following based on topic", path: eval_query10_path } %>
+    </tbody>
+  </table>
+</div>

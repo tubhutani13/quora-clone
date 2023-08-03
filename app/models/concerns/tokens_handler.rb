@@ -1,4 +1,4 @@
-module TokenHandler
+module TokensHandler
   def generate_token(column)
     begin
       self[column] = SecureRandom.urlsafe_base64

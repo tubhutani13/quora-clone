@@ -1,5 +1,5 @@
 class Question < ApplicationRecord
-  include ::TokenHandler
+  include TokensHandler
   include CommentsHandler
   include ReportsHandler
 
@@ -7,6 +7,7 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :restrict_with_error
   has_many :credits, as: :creditable
   has_many :notifications, as: :notifiable
+  has_many :comments_answers, through: :answers, source: :comments
 
   before_create -> { generate_token(:permalink) }
   before_save :ensure_published_question_cannot_be_drafted
@@ -59,5 +60,9 @@ class Question < ApplicationRecord
 
   def recently_published
     published_at_previous_change & [0] == nil
+  end
+
+  def all_comments
+     comments + comment_answers
   end
 end

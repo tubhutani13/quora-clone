@@ -3,6 +3,8 @@ class Vote < ApplicationRecord
   before_destroy :sync_votes
 
   belongs_to :voteable, polymorphic: true
+  belongs_to :comment, -> { where( votes: { voteable_type: 'Comment' } )}, foreign_key: 'voteable_id'
+
   belongs_to :user
 
   validates :amount, presence: true, inclusion: { in: [1, -1] }
