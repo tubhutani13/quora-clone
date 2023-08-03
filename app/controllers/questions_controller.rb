@@ -5,18 +5,11 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
-  def edit
-  end
-
   def create
     @question = current_user.questions.build(question_params)
     respond_to do |format|
       if @question.publish_question(params[:publish])
-        if params[:draft]
-          format.html { redirect_to question_url(@question), notice: t("question_draft_success") }
-        else
-          format.html { redirect_to question_url(@question), notice: t("question_publish_success") }
-        end
+        format.html { redirect_to question_url(@question), notice: params[:publish] ? t("question_publish_success") : t("question_draft_success") }
         format.json { render :show, status: :created, location: @question }
       else
         flash[:error] = t("error")
@@ -27,11 +20,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update_question(question_params, params[:publish])
-      if params[:draft]
-        redirect_to question_path, notice: t("question_draft_success")
-      else
-        redirect_to question_path, notice: t("question_publish_success")
-      end
+      redirect_to question_path, notice: params[:publish] ? t("question_publish_success") : t("question_draft_success")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -39,7 +28,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     if @question.destroy
-      redirect_to user_path, notice: t("question_delete_success")
+      redirect_to user_path(current_user), notice: t("question_delete_success")
     else
       render :show, status: :unprocessable_entity
     end
@@ -50,6 +39,7 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = @q.result
+    @topics = Topic.all
   end
 
   private

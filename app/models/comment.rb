@@ -1,8 +1,8 @@
 class Comment < ApplicationRecord
   include ReportsHandler
-  
   before_create :set_publish_time
-  
+  include VotesHandler
+
   belongs_to :commentable, polymorphic: true
   belongs_to :user
 

@@ -1,2 +1,3 @@
-en: 
+en:
   invalid_email_pass_combination: "The email/password combination is not valid "
+  disabled_account: "Your account has been disabled on %{disable_day}."

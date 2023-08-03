@@ -1,12 +1,19 @@
 class SessionsController < ApplicationController
-
+  skip_before_action :authorize_user
   before_action :set_user, only: [:create]
   before_action :authenticate_user, only: [:create]
 
   def create
     if @user.verified?
       log_in @user
-      redirect_to root_url
+      case
+      when @user.banned?
+        redirect_to login_url, notice: t('disabled_account.', disable_day: @user.disabled_at.to_date)
+      when @user.admin?
+        redirect_to admin_path
+      else
+        redirect_to root_url
+      end
     else
       flash.now[:error] = "Please activate your account by following the 
         instructions in the account confirmation email you received to proceed"

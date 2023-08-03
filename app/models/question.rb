@@ -3,14 +3,14 @@ class Question < ApplicationRecord
   include CommentsHandler
   include ReportsHandler
 
-  
   belongs_to :user
   has_many :answers, dependent: :restrict_with_error
   has_many :credits, as: :creditable
+  has_many :notifications, as: :notifiable
 
-  scope :published_questions, -> { where.not(published_at: :nil) }
   before_create -> { generate_token(:permalink) }
   before_save :ensure_published_question_cannot_be_drafted
+  after_commit :send_notifications, if: :recently_published, on: [:create, :update]
 
   with_options if: :published? do
     validates :title, presence: true, uniqueness: true
@@ -25,7 +25,7 @@ class Question < ApplicationRecord
   acts_as_taggable_on :topics
 
   private def ensure_published_question_cannot_be_drafted
-    if changes[:published] == [true, false]
+    if published_at_changed? && published_at_change[0] != nil && published_at_change[1] == nil
       errors.add(:base, "Published question cannot be Drafted")
       throw :abort
     end
@@ -49,5 +49,15 @@ class Question < ApplicationRecord
     if published
       self.published_at = Time.now
     end
+  end
+
+  def send_notifications
+    users = User.tagged_with(topic_list, any: true).where.not(id: self.user_id)
+    notification = notifications.create(content: "Question posted related to your interested topic")
+    notification.users << users
+  end
+
+  def recently_published
+    published_at_previous_change & [0] == nil
   end
 end

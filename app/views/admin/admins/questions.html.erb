@@ -1,0 +1,33 @@
+<div class = " container">  <Strong>Question list</Strong>
+  <table class="table">
+    <thead>
+      <tr>
+        <% number = 0 %>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">File Link</th>
+        <th scope="col">Topics</th>
+        <th scope="col">View</th>
+        <th scope="col">Unpublish</th>
+      </tr>
+    </thead>
+    <% @questions.each do |question| %>
+      <tr>
+        <th scope="row"><%= number = number.next %></th>
+        <td><%= question.title %></td>
+        <td><%= question.content.to_plain_text.truncate(100) %></td>
+        <td>
+          <% if question.pdf_attachment.present?%>
+            <%= link_to  "Open PDF",rails_blob_path(question.pdf_attachment), class: "d-block" %>
+          <% else%>
+            No File
+          <% end%></td>
+        <td><%= render partial: 'topics/topic', collection: question.topics %></td>
+        <td><%= link_to 'View Question', question_path(question.permalink) %></td>
+        <td><%= render partial: 'disable_entity_form', locals: { entity: question } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

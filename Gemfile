@@ -51,10 +51,14 @@ gem 'ransack', "~> 3.2.1"
 gem 'acts-as-taggable-on', '~> 9.0'
 gem 'select2-rails','~> 4.0.1'
 gem 'jquery-rails','~> 4.5.1'
+gem 'stripe', '~> 7.1.0'
+gem 'random_token', '~> 1.1'
+gem 'active_model_serializers', '~> 0.10.13'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  
 end
 
 group :development do
@@ -73,4 +77,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'factory_bot_rails'
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
+  gem 'rails-controller-testing'
+  gem 'simplecov'
 end

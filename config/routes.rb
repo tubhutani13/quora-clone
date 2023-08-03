@@ -12,7 +12,16 @@ Rails.application.routes.draw do
       get :confirm_email
       post "follow"
       post "unfollow"
+      get 'questions_data'
     end
+  end
+
+  resources :credit_packs, only: [:index]
+  resource :transactions, only: [:create]
+  resources :orders, only: [:create], param: :code do
+    get "checkout", on: :member
+    get "success", on: :member
+    get "failure", on: :member
   end
   resources :passwords
   resources :sessions, only: [:new, :create, :destroy]
@@ -25,6 +34,32 @@ Rails.application.routes.draw do
     collection do
       match "search" => "questions#search", via: [:get, :post], as: :search
     end
+  end
+
+  namespace :api do
+    get "feed", to: "users#feed", format: true, constraints: { format: :json }
+    resources :topics, only: [:index, :show], param: :topic do
+      get "/:x", to: "topics#show", on: :member
+    end
+  end
+
+  scope controller: :votes, path: "vote" do
+    post "upvote"
+    post "downvote"
+  end
+
+  resource :admin, only: [:show], module: :admin do
+    get "users"
+    get "questions"
+    get "answers"
+    get "comments"
+    patch "disable_user"
+    patch "disable_entity"
+  end
+
+  resource :notification, only: [:show] do
+    get "count"
+    put "mark_read"
   end
 
   get "/login", to: "sessions#new"

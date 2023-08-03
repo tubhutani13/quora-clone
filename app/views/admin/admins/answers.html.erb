@@ -1,0 +1,24 @@
+<div class = " container">  <Strong>Answer list</Strong>
+  <table class="table">
+    <thead>
+      <tr>
+        <% number = 0 %>
+        <th scope="col">#</th>
+        <th scope="col">Answer</th>
+        <th scope="col">Question</th>
+        <th scope="col">View</th>
+        <th scope="col">Unpublish</th>
+      </tr>
+    </thead>
+    <% @answers.each do |answer| %>
+      <tr>
+        <th scope="row"><%= number = number.next %></th>
+        <td><%= answer.content.to_plain_text.truncate(100) %></td>
+        <td><%= answer.question.title %></td>
+        <td><%= link_to 'View Question', question_path(answer.question.permalink) %></td>
+        <td><%= render partial: 'disable_entity_form', locals: { entity: answer } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

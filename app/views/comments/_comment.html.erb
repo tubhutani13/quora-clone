@@ -4,6 +4,7 @@
     <%= comment.content%>
   </div>
   <% if logged_in? %>
+  <%= render partial: 'votes/vote_form', locals: {resource: comment} %>
     <%= link_to 'Report this Comment', new_report_path(reportable_id: comment.id, reportable_type: comment.class) %>
   <% end %>
   <% if comment.user_id == current_user&.id   %>

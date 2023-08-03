@@ -3,6 +3,7 @@ module ReportsHandler
     klass.class_eval do
       has_many :reports, as: :reportable
       validates :published_at, reportable_threshold: true, if: :published?
+      scope :published, -> { where.not(published_at: :nil) }
     end
   end
 
@@ -15,6 +16,6 @@ module ReportsHandler
   end
 
   def unpublished?
-    reports.count >= REPORTS_THRESHOLD
+    reports.count >= REPORTS_THRESHOLD || !published?
   end
 end

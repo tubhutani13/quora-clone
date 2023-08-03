@@ -1,0 +1,20 @@
+<div>Checkout Page</div>
+<div>
+
+  <div>Your Order Details</div>
+  <div >
+    <div>
+      <div>Price: </div>
+      <div>₹<%= @order.amount %></div>
+    </div>
+
+    <div>
+      <div>Credits: </div>
+      <div><%= @order.credit_pack.credits %></div>
+    </div>
+
+    <%= form_with url: transactions_path(order_id: @order.id) do |form| %>
+      <%= form.submit 'Checkout', class: 'form-submit-button' %>
+    <% end %>
+  </div>
+</div>

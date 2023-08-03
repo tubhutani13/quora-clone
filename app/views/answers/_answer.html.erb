@@ -6,6 +6,7 @@
   <%end  %>
    <% if logged_in? %>
   <%= link_to 'Report this Answer', new_report_path(reportable_id: answer.id, reportable_type: answer.class) %>
+  <%= render partial: 'votes/vote_form', locals: {resource: answer} %>
   <%= render partial: 'comments/form',locals:{ entity: answer, comment: answer.comments.build, parent_entity: entity } %>
   <% end %>
   <div class= "answer-comm">
